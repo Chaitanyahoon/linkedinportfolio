@@ -1,5 +1,4 @@
 import { projects, experiences, certifications, skills } from "@/lib/data"
-import { Navbar } from "@/components/layout/navbar"
 import { Hero } from "@/components/sections/hero"
 import { About } from "@/components/sections/about"
 import { Projects } from "@/components/sections/projects"
@@ -11,17 +10,16 @@ import { Footer } from "@/components/layout/footer"
 export default function Portfolio() {
 
   return (
-    <div className="min-h-screen transition-all duration-500">
-      <div className="bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 text-slate-900 dark:text-slate-100">
-        <Navbar />
+    <div className="min-h-screen transition-all duration-500 bg-background text-foreground">
+      <main>
         <Hero />
         <About skills={skills} />
         <Projects projects={projects} />
         <ExperienceSection experiences={experiences} />
         <Certifications certifications={certifications} />
         <Contact />
-        <Footer />
-      </div>
+      </main>
+      <Footer />
     </div>
   )
 }

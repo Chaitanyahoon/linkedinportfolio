@@ -2,11 +2,12 @@
 
 import { ArrowRight, Download, Eye } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { motion } from "framer-motion"
+import { motion, useTransform, useSpring, useMotionValue } from "framer-motion"
 import { ParticlesBackground } from "@/components/ui/particles-background"
 import { TypewriterEffect } from "@/components/ui/typewriter-effect"
 import FlickerText from "@/components/ui/flicker-text"
 import { FluidButton } from "@/components/ui/fluid-button"
+import { useEffect } from "react"
 
 export function Hero() {
     const scrollToSection = (sectionId: string) => {
@@ -16,63 +17,86 @@ export function Hero() {
         }
     }
 
+    // Mouse parallax effect
+    const mouseX = useMotionValue(0)
+    const mouseY = useMotionValue(0)
+
+    const springConfig = { damping: 25, stiffness: 120 }
+    const blob1X = useSpring(useTransform(mouseX, [0, 1], [-50, 50]), springConfig)
+    const blob1Y = useSpring(useTransform(mouseY, [0, 1], [-50, 50]), springConfig)
+    const blob2X = useSpring(useTransform(mouseX, [0, 1], [50, -50]), springConfig)
+    const blob2Y = useSpring(useTransform(mouseY, [0, 1], [50, -50]), springConfig)
+
+    useEffect(() => {
+        const handleMouseMove = (e: MouseEvent) => {
+            const { clientX, clientY } = e
+            const { innerWidth, innerHeight } = window
+            mouseX.set(clientX / innerWidth)
+            mouseY.set(clientY / innerHeight)
+        }
+
+        window.addEventListener("mousemove", handleMouseMove)
+        return () => window.removeEventListener("mousemove", handleMouseMove)
+    }, [mouseX, mouseY])
+
     return (
         <section
             id="home"
-            className="min-h-screen flex items-center justify-center px-6 lg:px-8 relative overflow-hidden"
+            className="min-h-screen flex items-center justify-center px-6 lg:px-8 relative overflow-hidden perspective-1000"
         >
             <ParticlesBackground />
 
             {/* Dynamic Background with more vibrant colors */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-purple-500/5 dark:from-primary/20 dark:via-background dark:to-purple-900/20 -z-20"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-purple-500/10 dark:from-primary/20 dark:via-background dark:to-purple-900/20 -z-20"></div>
 
-            {/* Animated Blobs */}
+            {/* Animated Blobs with Parallax */}
             <motion.div
+                style={{ x: blob1X, y: blob1Y }}
                 animate={{
                     scale: [1, 1.2, 1],
                     rotate: [0, 90, 0],
                 }}
                 transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "linear"
+                    scale: { duration: 20, repeat: Infinity, ease: "linear" },
+                    rotate: { duration: 20, repeat: Infinity, ease: "linear" }
                 }}
-                className="absolute -top-24 -right-24 w-96 h-96 bg-primary/10 dark:bg-primary/20 rounded-full blur-3xl"
+                className="absolute -top-24 -right-24 w-96 h-96 bg-primary/20 dark:bg-primary/30 rounded-full blur-[100px] opacity-70"
             />
             <motion.div
+                style={{ x: blob2X, y: blob2Y }}
                 animate={{
                     scale: [1, 1.1, 1],
-                    x: [0, 50, 0],
+                    x: [0, 50, 0], // Keep the subtle drift combined with mouse movement
                 }}
                 transition={{
-                    duration: 15,
-                    repeat: Infinity,
-                    ease: "easeInOut"
+                    scale: { duration: 15, repeat: Infinity, ease: "easeInOut" },
+                    x: { duration: 15, repeat: Infinity, ease: "easeInOut" }
                 }}
-                className="absolute -bottom-24 -left-24 w-[30rem] h-[30rem] bg-purple-500/10 dark:bg-purple-500/20 rounded-full blur-3xl delay-1000"
+                className="absolute -bottom-24 -left-24 w-[30rem] h-[30rem] bg-purple-500/20 dark:bg-purple-500/30 rounded-full blur-[100px] delay-1000 opacity-70"
             />
 
             <div className="max-w-5xl mx-auto text-center relative z-10">
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    initial={{ opacity: 0, y: 30, rotateX: 10 }}
+                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    style={{ perspective: 1000 }}
                 >
                     {/* Replaced the h1 with FlickerText */}
                     <div className="mb-6">
                         <FlickerText
                             text="Chaitanya Patil"
                             textColor="hsl(var(--foreground))"
-                            glowColor="#f59e0b" // amber-500
-                            animationSpeed={0.5}
-                            glowIntensity={5}
+                            glowColor="hsl(var(--primary))" // Use theme primary
+                            animationSpeed={0.8} // Slower for elegance
+                            glowIntensity={0.6}
                             strokeWidth={1}
-                            className="text-6xl sm:text-7xl lg:text-8xl font-black premium-heading leading-tight tracking-tight"
+                            className="text-6xl sm:text-7xl lg:text-9xl font-black premium-heading leading-tight tracking-tight drop-shadow-2xl"
                         />
                     </div>
 
                     <motion.h2
-                        className="text-2xl sm:text-3xl lg:text-4xl text-muted-foreground mb-8 font-light"
+                        className="text-2xl sm:text-3xl lg:text-4xl text-muted-foreground mb-8 font-light tracking-wide"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3, duration: 0.8 }}
@@ -97,7 +121,7 @@ export function Hero() {
                         transition={{ delay: 0.7, duration: 0.8 }}
                     >
                         <motion.div
-                            whileHover={{ scale: 1.05 }}
+                            whileHover={{ scale: 1.05, filter: "brightness(1.1)" }}
                             whileTap={{ scale: 0.95 }}
                         >
                             <FluidButton
@@ -118,7 +142,7 @@ export function Hero() {
                             <Button
                                 variant="outline"
                                 onClick={() => scrollToSection("contact")}
-                                className="premium-button border-2 px-10 py-8 text-xl font-bold rounded-full hover:bg-secondary/80 backdrop-blur-sm"
+                                className="premium-button border-2 px-10 py-8 text-xl font-bold rounded-full hover:bg-secondary/20 backdrop-blur-sm shadow-lg dark:shadow-purple-900/20"
                             >
                                 Get In Touch
                             </Button>
@@ -131,7 +155,7 @@ export function Hero() {
                         animate={{ opacity: 1 }}
                         transition={{ delay: 1, duration: 1 }}
                     >
-                        <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
+                        <motion.div whileHover={{ scale: 1.05, y: -2, color: "hsl(var(--primary))" }} whileTap={{ scale: 0.95 }}>
                             <Button
                                 variant="ghost"
                                 className="gap-2 text-muted-foreground hover:text-primary transition-colors"
@@ -144,7 +168,7 @@ export function Hero() {
                             </Button>
                         </motion.div>
                         <div className="w-[1px] h-6 bg-border self-center" />
-                        <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
+                        <motion.div whileHover={{ scale: 1.05, y: -2, color: "hsl(var(--primary))" }} whileTap={{ scale: 0.95 }}>
                             <Button
                                 variant="ghost"
                                 className="gap-2 text-muted-foreground hover:text-primary transition-colors"

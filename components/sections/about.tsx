@@ -15,8 +15,8 @@ interface AboutProps {
 export function About({ skills }: AboutProps) {
     // Group skills by category
     const categories = useMemo(() => ({
-        frontend: skills.filter(s => s.category === "frontend"),
         backend: skills.filter(s => s.category === "backend"),
+        frontend: skills.filter(s => s.category === "frontend"),
         database: skills.filter(s => s.category === "database"),
         devops: skills.filter(s => s.category === "devops"),
         mobile: skills.filter(s => s.category === "mobile"),
@@ -31,7 +31,10 @@ export function About({ skills }: AboutProps) {
     ]
 
     return (
-        <section id="about" className="py-24 px-6 lg:px-8 bg-gradient-to-br from-white via-slate-50 to-white dark:from-slate-800 dark:via-slate-900 dark:to-slate-800">
+        <section id="about" className="py-24 px-6 lg:px-8 relative overflow-hidden">
+            {/* Background Gradients */}
+            <div className="absolute inset-0 bg-gradient-to-bl from-background via-purple-500/5 to-primary/5 -z-20"></div>
+
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-20">
                     <motion.h2
@@ -70,8 +73,8 @@ export function About({ skills }: AboutProps) {
                                 return (
                                     <motion.div
                                         key={index}
-                                        whileHover={{ y: -5, borderColor: "hsl(var(--primary))" }}
-                                        className="p-6 bg-card rounded-2xl border border-border transition-all shadow-sm hover:shadow-lg"
+                                        whileHover={{ y: -5, borderColor: "hsl(var(--primary))", boxShadow: "0 10px 30px -10px rgba(124, 58, 237, 0.2)" }}
+                                        className="p-6 bg-card rounded-2xl border border-border transition-all shadow-sm"
                                     >
                                         <div className="flex flex-col items-center gap-3">
                                             <div className="p-3 bg-primary/10 rounded-full">
@@ -99,7 +102,7 @@ export function About({ skills }: AboutProps) {
                         {/* Current Focus */}
                         <motion.div
                             whileHover={{ scale: 1.02 }}
-                            className="mt-16 p-6 bg-primary/5 rounded-2xl border border-primary/20 inline-block"
+                            className="mt-16 p-6 bg-primary/5 rounded-2xl border border-primary/20 inline-block backdrop-blur-sm"
                         >
                             <h4 className="text-lg font-semibold text-primary mb-2 flex items-center justify-center gap-2">
                                 <Cpu className="w-5 h-5" />
@@ -117,13 +120,16 @@ export function About({ skills }: AboutProps) {
                     <h3 className="text-2xl font-bold mb-8 text-center text-foreground">Technical Arsenal</h3>
 
                     <Tabs defaultValue="backend" className="w-full max-w-5xl mx-auto">
-                        <TabsList className="flex flex-wrap justify-center gap-2 mb-8 h-auto p-2 bg-muted rounded-2xl">
-                            <TabsTrigger value="backend" className="rounded-xl px-4 py-2 data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all duration-300">Backend & Core</TabsTrigger>
-                            <TabsTrigger value="frontend" className="rounded-xl px-4 py-2 data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all duration-300">Frontend</TabsTrigger>
-                            <TabsTrigger value="database" className="rounded-xl px-4 py-2 data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all duration-300">Database</TabsTrigger>
-                            <TabsTrigger value="devops" className="rounded-xl px-4 py-2 data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all duration-300">DevOps & OS</TabsTrigger>
-                            <TabsTrigger value="mobile" className="rounded-xl px-4 py-2 data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all duration-300">Mobile</TabsTrigger>
-                            <TabsTrigger value="tools" className="rounded-xl px-4 py-2 data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all duration-300">Tools & Testing</TabsTrigger>
+                        <TabsList className="flex flex-wrap justify-center gap-2 mb-8 h-auto p-2 bg-muted/50 rounded-2xl border border-white/5">
+                            {Object.keys(categories).map(category => (
+                                <TabsTrigger
+                                    key={category}
+                                    value={category}
+                                    className="capitalize rounded-xl px-4 py-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300"
+                                >
+                                    {category === 'devops' ? 'DevOps & OS' : category}
+                                </TabsTrigger>
+                            ))}
                         </TabsList>
 
                         {Object.entries(categories).map(([key, categorySkills]) => (
@@ -143,22 +149,22 @@ export function About({ skills }: AboutProps) {
                                             whileHover={{ scale: 1.05, y: -5 }}
                                             className="premium-card p-4 rounded-2xl flex flex-col items-center justify-center text-center gap-3 hover:border-primary/50 group min-h-[140px]"
                                         >
-                                            <div className="w-12 h-12 bg-secondary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-inner">
+                                            <div className="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-inner">
                                                 {key === 'frontend' && <Globe className="w-6 h-6 text-blue-500" />}
                                                 {key === 'backend' && <Server className="w-6 h-6 text-green-500" />}
                                                 {key === 'database' && <Database className="w-6 h-6 text-purple-500" />}
-                                                {key === 'devops' && <Terminal className="w-6 h-6 text-orange-500" />}
+                                                {key === 'devops' && <Terminal className="w-6 h-6 text-amber-500" />}
                                                 {key === 'mobile' && <Smartphone className="w-6 h-6 text-pink-500" />}
                                                 {key === 'tools' && <PenTool className="w-6 h-6 text-slate-500" />}
                                             </div>
                                             <div>
                                                 <h4 className="font-semibold text-foreground">{skill.name}</h4>
-                                                <div className="w-full bg-secondary h-1.5 mt-2 rounded-full overflow-hidden">
+                                                <div className="w-full bg-secondary/30 h-1.5 mt-2 rounded-full overflow-hidden">
                                                     <motion.div
                                                         initial={{ width: 0 }}
                                                         whileInView={{ width: `${(skill.proficiency / 5) * 100}%` }}
                                                         transition={{ duration: 1, delay: 0.5 }}
-                                                        className="h-full bg-gradient-to-r from-primary to-orange-500 rounded-full"
+                                                        className="h-full bg-gradient-to-r from-primary to-secondary rounded-full"
                                                     />
                                                 </div>
                                             </div>

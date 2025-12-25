@@ -5,9 +5,12 @@ import { Moon, Sun, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import ThemeToggle from "@/components/ui/theme-toggle"
 import { motion, useScroll, useMotionValueEvent } from "framer-motion"
+import { useTheme } from "next-themes"
+import { Logo } from "@/components/ui/logo"
 
 export function Navbar() {
-    const [darkMode, setDarkMode] = useState(true)
+    const { theme, setTheme } = useTheme()
+    const [mounted, setMounted] = useState(false)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [activeSection, setActiveSection] = useState("home")
     const [isScrolled, setIsScrolled] = useState(false)
@@ -18,12 +21,8 @@ export function Navbar() {
     })
 
     useEffect(() => {
-        if (darkMode) {
-            document.documentElement.classList.add("dark")
-        } else {
-            document.documentElement.classList.remove("dark")
-        }
-    }, [darkMode])
+        setMounted(true)
+    }, [])
 
     useEffect(() => {
         const handleScroll = () => {
@@ -56,9 +55,13 @@ export function Navbar() {
         setMobileMenuOpen(false)
     }
 
+    if (!mounted) {
+        return null // Avoid hydration mismatch
+    }
+
     return (
         <motion.nav
-            className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? "glass-morphism border-b border-white/10" : "bg-transparent border-transparent"
+            className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? "glass-morphism border-b border-white/5" : "bg-transparent border-transparent"
                 }`}
             initial={{ y: -100 }}
             animate={{ y: 0 }}
@@ -66,12 +69,12 @@ export function Navbar() {
         >
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
-                    <div className="font-bold text-2xl premium-heading cursor-pointer" onClick={() => scrollToSection("home")}>
-                        CP
+                    <div className="cursor-pointer" onClick={() => scrollToSection("home")}>
+                        <Logo className="w-12 h-12" />
                     </div>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center gap-1 bg-secondary/50 p-1.5 rounded-full border border-white/5 backdrop-blur-md">
+                    <div className="hidden md:flex items-center gap-1 bg-secondary/30 p-1.5 rounded-full border border-white/5 backdrop-blur-md">
                         {["Home", "About", "Projects", "Internships", "Contact"].map((item) => {
                             const isActive = activeSection === item.toLowerCase()
 
@@ -101,9 +104,9 @@ export function Navbar() {
 
                     <div className="flex items-center space-x-4">
                         <ThemeToggle
-                            isDark={darkMode}
-                            toggleTheme={() => setDarkMode(!darkMode)}
-                            size={34} // Adjusted size to fit navbar
+                            isDark={theme === "dark"}
+                            toggleTheme={() => setTheme(theme === "dark" ? "light" : "dark")}
+                            size={34}
                         />
 
                         <Button

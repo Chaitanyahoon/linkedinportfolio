@@ -54,8 +54,11 @@ export function Contact() {
     return (
         <section
             id="contact"
-            className="py-24 px-6 lg:px-8 bg-gradient-to-br from-white via-slate-50 to-white dark:from-slate-800 dark:via-slate-900 dark:to-slate-800"
+            className="py-24 px-6 lg:px-8 relative overflow-hidden"
         >
+            {/* Background Gradients */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-cyan-500/5 -z-20"></div>
+
             <div className="max-w-5xl mx-auto">
                 <div className="text-center mb-20">
                     <FadeIn direction="down">
@@ -63,7 +66,7 @@ export function Contact() {
                     </FadeIn>
                     <FadeIn delay={0.2}>
                         <div className="section-divider max-w-24 mx-auto"></div>
-                        <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed mt-6">
+                        <p className="text-xl text-muted-foreground leading-relaxed mt-6">
                             Let's discuss your next project or opportunity
                         </p>
                     </FadeIn>
@@ -71,39 +74,39 @@ export function Contact() {
 
                 <div className="grid lg:grid-cols-2 gap-16">
                     <FadeIn direction="left" delay={0.4}>
-                        <h3 className="text-2xl font-bold mb-8 text-slate-800 dark:text-slate-200">Contact Information</h3>
+                        <h3 className="text-2xl font-bold mb-8 text-foreground">Contact Information</h3>
                         <div className="space-y-6">
                             <motion.div
                                 whileHover={{ x: 5 }}
                                 className="flex items-center group cursor-pointer"
                             >
-                                <div className="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center mr-4 group-hover:bg-amber-200 dark:group-hover:bg-amber-900/50 transition-colors duration-300">
-                                    <Mail className="w-5 h-5 text-amber-600" />
+                                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4 group-hover:bg-primary/20 transition-colors duration-300">
+                                    <Mail className="w-5 h-5 text-primary" />
                                 </div>
-                                <span className="text-slate-700 dark:text-slate-300 font-medium">chaitanyapatil700@gmail.com</span>
+                                <span className="text-foreground/80 font-medium">chaitanyapatil700@gmail.com</span>
                             </motion.div>
                             <motion.div
                                 whileHover={{ x: 5 }}
                                 className="flex items-center group cursor-pointer"
                             >
-                                <div className="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center mr-4 group-hover:bg-amber-200 dark:group-hover:bg-amber-900/50 transition-colors duration-300">
-                                    <Phone className="w-5 h-5 text-amber-600" />
+                                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4 group-hover:bg-primary/20 transition-colors duration-300">
+                                    <Phone className="w-5 h-5 text-primary" />
                                 </div>
-                                <span className="text-slate-700 dark:text-slate-300 font-medium">+91 9724917040</span>
+                                <span className="text-foreground/80 font-medium">+91 9724917040</span>
                             </motion.div>
                             <motion.div
                                 whileHover={{ x: 5 }}
                                 className="flex items-center group cursor-pointer"
                             >
-                                <div className="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center mr-4 group-hover:bg-amber-200 dark:group-hover:bg-amber-900/50 transition-colors duration-300">
-                                    <MapPin className="w-5 h-5 text-amber-600" />
+                                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4 group-hover:bg-primary/20 transition-colors duration-300">
+                                    <MapPin className="w-5 h-5 text-primary" />
                                 </div>
-                                <span className="text-slate-700 dark:text-slate-300 font-medium">Pune, India</span>
+                                <span className="text-foreground/80 font-medium">Pune, India</span>
                             </motion.div>
                         </div>
 
                         <div className="mt-12">
-                            <h4 className="text-xl font-bold mb-6 text-slate-800 dark:text-slate-200">Follow Me</h4>
+                            <h4 className="text-xl font-bold mb-6 text-foreground">Follow Me</h4>
                             <div className="flex space-x-4">
                                 <motion.div whileHover={{ scale: 1.1, rotate: 5 }} whileTap={{ scale: 0.9 }}>
                                     <Button variant="outline" size="lg" className="premium-button rounded-xl" asChild>
@@ -126,14 +129,14 @@ export function Contact() {
                     </FadeIn>
 
                     <FadeIn direction="right" delay={0.6}>
-                        <form onSubmit={handleFormSubmit} className="space-y-8 p-8 bg-card/50 backdrop-blur-sm rounded-2xl border border-border/50 shadow-sm">
+                        <form onSubmit={handleFormSubmit} className="space-y-8 p-8 bg-card/60 backdrop-blur-md rounded-3xl border border-white/10 shadow-xl dark:shadow-primary/5">
                             <div>
                                 <Input
                                     name="name"
                                     value={formData.name}
                                     onChange={handleInputChange}
                                     placeholder="Your Name"
-                                    className="w-full h-14 px-6 text-lg premium-focus rounded-xl border-2 border-slate-200 dark:border-slate-700 focus:border-amber-500 dark:focus:border-amber-400 transition-colors duration-300 bg-background/50"
+                                    className="w-full h-14 px-6 text-lg premium-focus rounded-xl border-2 border-border focus:border-primary transition-colors duration-300 bg-background/50"
                                     required
                                 />
                             </div>
@@ -144,7 +147,7 @@ export function Contact() {
                                     value={formData.email}
                                     onChange={handleInputChange}
                                     placeholder="Your Email"
-                                    className="w-full h-14 px-6 text-lg premium-focus rounded-xl border-2 border-slate-200 dark:border-slate-700 focus:border-amber-500 dark:focus:border-amber-400 transition-colors duration-300 bg-background/50"
+                                    className="w-full h-14 px-6 text-lg premium-focus rounded-xl border-2 border-border focus:border-primary transition-colors duration-300 bg-background/50"
                                     required
                                 />
                             </div>
@@ -155,7 +158,7 @@ export function Contact() {
                                     onChange={handleInputChange}
                                     placeholder="Your Message"
                                     rows={6}
-                                    className="w-full px-6 py-4 text-lg premium-focus rounded-xl border-2 border-slate-200 dark:border-slate-700 focus:border-amber-500 dark:focus:border-amber-400 transition-colors duration-300 resize-none bg-background/50"
+                                    className="w-full px-6 py-4 text-lg premium-focus rounded-xl border-2 border-border focus:border-primary transition-colors duration-300 resize-none bg-background/50"
                                     required
                                 />
                             </div>
@@ -163,7 +166,7 @@ export function Contact() {
                             {submitStatus === "success" && (
                                 <motion.div
                                     initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                                    className="p-6 bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 rounded-xl border border-green-200 dark:border-green-800"
+                                    className="p-6 bg-green-500/10 text-green-600 rounded-xl border border-green-500/20"
                                 >
                                     Thank you! Your message has been sent successfully.
                                 </motion.div>
@@ -172,7 +175,7 @@ export function Contact() {
                             {submitStatus === "error" && (
                                 <motion.div
                                     initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                                    className="p-6 bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300 rounded-xl border border-red-200 dark:border-red-800"
+                                    className="p-6 bg-red-500/10 text-red-600 rounded-xl border border-red-500/20"
                                 >
                                     Sorry, there was an error sending your message. Please try again.
                                 </motion.div>
@@ -182,7 +185,7 @@ export function Contact() {
                                 <Button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full h-14 premium-button bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white text-lg font-medium rounded-xl shadow-lg disabled:opacity-50 transition-all duration-300"
+                                    className="w-full h-14 premium-button text-white text-lg font-medium rounded-xl shadow-lg disabled:opacity-50 transition-all duration-300 bg-gradient-to-r from-primary to-purple-600"
                                 >
                                     {isSubmitting ? "Sending..." : "Send Message"}
                                 </Button>

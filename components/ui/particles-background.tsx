@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react"
 import Particles, { initParticlesEngine } from "@tsparticles/react"
 import { loadSlim } from "@tsparticles/slim"
+import { useTheme } from "next-themes"
 
 export function ParticlesBackground() {
     const [init, setInit] = useState(false)
+    const { theme } = useTheme()
 
     useEffect(() => {
         initParticlesEngine(async (engine) => {
@@ -16,6 +18,8 @@ export function ParticlesBackground() {
     }, [])
 
     if (!init) return null
+
+    const particleColor = theme === "dark" ? "#a78bfa" : "#7c3aed" // Light violet vs proper violet
 
     return (
         <Particles
@@ -36,25 +40,27 @@ export function ParticlesBackground() {
                         },
                         onHover: {
                             enable: true,
-                            mode: "repulse",
+                            mode: "grab", // Changed to grab for "network" feel
                         },
                     },
                     modes: {
                         push: {
                             quantity: 4,
                         },
-                        repulse: {
+                        grab: {
                             distance: 200,
-                            duration: 0.4,
+                            line_linked: {
+                                opacity: 0.5
+                            }
                         },
                     },
                 },
                 particles: {
                     color: {
-                        value: "#d4af37", // Gold color
+                        value: particleColor,
                     },
                     links: {
-                        color: "#d4af37",
+                        color: particleColor,
                         distance: 150,
                         enable: true,
                         opacity: 0.2,
@@ -74,7 +80,7 @@ export function ParticlesBackground() {
                         density: {
                             enable: true,
                         },
-                        value: 80,
+                        value: 60, // Reduced count for cleaner look
                     },
                     opacity: {
                         value: 0.3,

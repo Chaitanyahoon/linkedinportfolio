@@ -4,48 +4,57 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
+    /* Slightly cooler/darker light mode */
+    --background: 260 25% 98%;
+    --foreground: 260 40% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 260 40% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 35 92% 50%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222 47% 11%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215 25% 40%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222 47% 11%;
+    --popover-foreground: 260 40% 10%;
+    --primary: 265 90% 60%;
+    /* Deep Violet */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 290 90% 95%;
+    /* Light Orchid */
+    --secondary-foreground: 260 40% 10%;
+    --muted: 260 20% 96%;
+    --muted-foreground: 260 10% 45%;
+    --accent: 260 20% 96%;
+    --accent-foreground: 260 40% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 35 92% 50%;
+    --border: 260 20% 90%;
+    --input: 260 20% 90%;
+    --ring: 265 90% 60%;
     --radius: 0.75rem;
   }
 
   .dark {
-    --background: 222 47% 11%;
+    /* Deep Cosmic Background - closer to void */
+    --background: 265 50% 5%;
     --foreground: 210 40% 98%;
-    --card: 222 47% 11%;
+    --card: 265 50% 8%;
     --card-foreground: 210 40% 98%;
-    --popover: 222 47% 11%;
+    --popover: 265 50% 8%;
     --popover-foreground: 210 40% 98%;
-    --primary: 35 92% 50%;
-    --primary-foreground: 222 47% 11%;
-    --secondary: 217 32% 17%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217 32% 17%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 217 32% 17%;
+
+    /* Neon Violet & Cyan Accents */
+    --primary: 270 95% 65%;
+    /* Electric Violet */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 190 90% 50%;
+    /* Cyan Neon */
+    --secondary-foreground: 265 60% 10%;
+
+    --muted: 265 40% 15%;
+    --muted-foreground: 265 20% 70%;
+    --accent: 265 40% 15%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217 32% 17%;
-    --input: 217 32% 17%;
-    --ring: 35 92% 50%;
+    --border: 265 40% 20%;
+    --input: 265 40% 20%;
+    --ring: 270 95% 65%;
   }
 }
 
@@ -62,19 +71,19 @@
 
 @layer utilities {
   .glass-morphism {
-    @apply bg-white/10 backdrop-blur-md border border-white/20 dark:bg-black/20 dark:border-white/10;
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-xl dark:bg-black/40 dark:border-white/5;
   }
 
   .premium-card {
-    @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 transition-all duration-500 hover:shadow-xl hover:border-primary/20 dark:hover:border-primary/20 hover:-translate-y-1;
+    @apply bg-white/70 dark:bg-[#0f0b1e]/80 backdrop-blur-md border border-slate-200/50 dark:border-white/5 transition-all duration-500 hover:scale-[1.01] hover:shadow-2xl hover:shadow-primary/20 hover:border-primary/30 dark:hover:border-primary/40;
   }
 
   .premium-heading {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-500 to-blue-600 dark:from-amber-400 dark:via-purple-400 dark:to-blue-400 animate-gradient bg-300%;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-400 to-cyan-400 dark:from-violet-400 dark:via-fuchsia-400 dark:to-cyan-400 animate-gradient bg-300%;
   }
 
   .premium-button {
-    @apply relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-0.5 active:translate-y-0 after:absolute after:inset-0 after:z-[-1] after:bg-gradient-to-r after:from-transparent after:via-white/20 after:to-transparent after:translate-x-[-200%] hover:after:translate-x-[200%] after:transition-transform after:duration-700;
+    @apply relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/30 active:scale-95 after:absolute after:inset-0 after:z-[-1] after:bg-gradient-to-r after:from-transparent after:via-white/20 after:to-transparent after:translate-x-[-200%] hover:after:translate-x-[200%] after:transition-transform after:duration-700;
   }
 
   .scrollbar-hide {
@@ -101,7 +110,7 @@
   }
 
   .animate-gradient {
-    animation: gradient 8s ease infinite;
+    animation: gradient 6s ease infinite;
   }
 
   .bg-300\% {
