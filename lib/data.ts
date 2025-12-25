@@ -80,6 +80,7 @@ export const projects: Project[] = [
         image: "/images/streetbite.png",
         category: "Food Tech",
         technologies: ["Spring Boot", "Next.js", "Firebase", "TypeScript", "Tailwind CSS"],
+        projectUrl: "https://streetbitego.vercel.app/",
         githubUrl: "https://github.com/Chaitanyahoon/StreetBite",
         featured: true,
         order: 3,

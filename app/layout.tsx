@@ -2,7 +2,8 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Outfit } from "next/font/google"
 import "./globals.css"
-import { CustomCursor } from "@/components/ui/custom-cursor"
+import { ThemeProvider } from "@/components/theme-provider"
+import { Navbar } from "@/components/layout/navbar"
 import { ScrollProgress } from "@/components/ui/scroll-progress"
 
 const outfit = Outfit({ subsets: ["latin"] })
@@ -75,10 +76,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={outfit.className}>
-        <CustomCursor />
-        <ScrollProgress />
-
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          <ScrollProgress />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )

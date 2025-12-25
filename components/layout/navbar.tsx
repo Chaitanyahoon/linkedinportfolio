@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Moon, Sun, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import ThemeToggle from "@/components/ui/theme-toggle"
 import { motion, useScroll, useMotionValueEvent } from "framer-motion"
 
 export function Navbar() {
@@ -70,38 +71,40 @@ export function Navbar() {
                     </div>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex space-x-10">
-                        {["Home", "About", "Projects", "Internships", "Contact"].map((item) => (
-                            <button
-                                key={item}
-                                onClick={() => scrollToSection(item.toLowerCase())}
-                                className={`text-sm font-medium transition-all duration-300 hover:text-primary relative ${activeSection === item.toLowerCase()
-                                    ? "text-primary"
-                                    : "text-muted-foreground"
-                                    }`}
-                            >
-                                {item}
-                                {activeSection === item.toLowerCase() && (
-                                    <motion.div
-                                        layoutId="activeSection"
-                                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
-                                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                                    ></motion.div>
-                                )}
-                            </button>
-                        ))}
+                    <div className="hidden md:flex items-center gap-1 bg-secondary/50 p-1.5 rounded-full border border-white/5 backdrop-blur-md">
+                        {["Home", "About", "Projects", "Internships", "Contact"].map((item) => {
+                            const isActive = activeSection === item.toLowerCase()
+
+                            return (
+                                <button
+                                    key={item}
+                                    onClick={() => scrollToSection(item.toLowerCase())}
+                                    className={`relative px-4 py-2 text-sm font-medium transition-colors duration-300 rounded-full z-10 ${isActive ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+                                        }`}
+                                >
+                                    {isActive && (
+                                        <motion.div
+                                            layoutId="liquid-nav-pill"
+                                            className="absolute inset-0 bg-primary rounded-full z-[-1]"
+                                            transition={{
+                                                type: "spring",
+                                                stiffness: 400,
+                                                damping: 30
+                                            }}
+                                        />
+                                    )}
+                                    {item}
+                                </button>
+                            )
+                        })}
                     </div>
 
                     <div className="flex items-center space-x-4">
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setDarkMode(!darkMode)}
-                            className="p-3 hover:bg-secondary rounded-full transition-all duration-300"
-                            title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                        >
-                            {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-                        </Button>
+                        <ThemeToggle
+                            isDark={darkMode}
+                            toggleTheme={() => setDarkMode(!darkMode)}
+                            size={34} // Adjusted size to fit navbar
+                        />
 
                         <Button
                             variant="ghost"

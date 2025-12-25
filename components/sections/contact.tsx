@@ -5,6 +5,8 @@ import { Mail, Phone, MapPin, Github, Linkedin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { motion } from "framer-motion"
+import { FadeIn } from "@/components/ui/fade-in"
 
 export function Contact() {
     const [formData, setFormData] = useState({
@@ -56,65 +58,82 @@ export function Contact() {
         >
             <div className="max-w-5xl mx-auto">
                 <div className="text-center mb-20">
-                    <h2 className="text-4xl sm:text-5xl font-bold mb-6 premium-heading">Get In Touch</h2>
-                    <div className="section-divider max-w-24 mx-auto"></div>
-                    <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed">
-                        Let's discuss your next project or opportunity
-                    </p>
+                    <FadeIn direction="down">
+                        <h2 className="text-4xl sm:text-5xl font-bold mb-6 premium-heading">Get In Touch</h2>
+                    </FadeIn>
+                    <FadeIn delay={0.2}>
+                        <div className="section-divider max-w-24 mx-auto"></div>
+                        <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed mt-6">
+                            Let's discuss your next project or opportunity
+                        </p>
+                    </FadeIn>
                 </div>
 
                 <div className="grid lg:grid-cols-2 gap-16">
-                    <div className="animate-slide-in-left">
+                    <FadeIn direction="left" delay={0.4}>
                         <h3 className="text-2xl font-bold mb-8 text-slate-800 dark:text-slate-200">Contact Information</h3>
                         <div className="space-y-6">
-                            <div className="flex items-center group">
+                            <motion.div
+                                whileHover={{ x: 5 }}
+                                className="flex items-center group cursor-pointer"
+                            >
                                 <div className="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center mr-4 group-hover:bg-amber-200 dark:group-hover:bg-amber-900/50 transition-colors duration-300">
                                     <Mail className="w-5 h-5 text-amber-600" />
                                 </div>
                                 <span className="text-slate-700 dark:text-slate-300 font-medium">chaitanyapatil700@gmail.com</span>
-                            </div>
-                            <div className="flex items-center group">
+                            </motion.div>
+                            <motion.div
+                                whileHover={{ x: 5 }}
+                                className="flex items-center group cursor-pointer"
+                            >
                                 <div className="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center mr-4 group-hover:bg-amber-200 dark:group-hover:bg-amber-900/50 transition-colors duration-300">
                                     <Phone className="w-5 h-5 text-amber-600" />
                                 </div>
                                 <span className="text-slate-700 dark:text-slate-300 font-medium">+91 9724917040</span>
-                            </div>
-                            <div className="flex items-center group">
+                            </motion.div>
+                            <motion.div
+                                whileHover={{ x: 5 }}
+                                className="flex items-center group cursor-pointer"
+                            >
                                 <div className="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center mr-4 group-hover:bg-amber-200 dark:group-hover:bg-amber-900/50 transition-colors duration-300">
                                     <MapPin className="w-5 h-5 text-amber-600" />
                                 </div>
                                 <span className="text-slate-700 dark:text-slate-300 font-medium">Pune, India</span>
-                            </div>
+                            </motion.div>
                         </div>
 
                         <div className="mt-12">
                             <h4 className="text-xl font-bold mb-6 text-slate-800 dark:text-slate-200">Follow Me</h4>
                             <div className="flex space-x-4">
-                                <Button variant="outline" size="lg" className="premium-button" asChild>
-                                    <a href="https://github.com/Chaitanyahoon" target="_blank" rel="noopener noreferrer">
-                                        <Github className="w-5 h-5 mr-2" />
-                                        GitHub
-                                    </a>
-                                </Button>
-                                <Button variant="outline" size="lg" className="premium-button" asChild>
-                                    <a href="https://www.linkedin.com/in/chaitanyapatil700/" target="_blank" rel="noopener noreferrer">
-                                        <Linkedin className="w-5 h-5 mr-2" />
-                                        LinkedIn
-                                    </a>
-                                </Button>
+                                <motion.div whileHover={{ scale: 1.1, rotate: 5 }} whileTap={{ scale: 0.9 }}>
+                                    <Button variant="outline" size="lg" className="premium-button rounded-xl" asChild>
+                                        <a href="https://github.com/Chaitanyahoon" target="_blank" rel="noopener noreferrer">
+                                            <Github className="w-5 h-5 mr-2" />
+                                            GitHub
+                                        </a>
+                                    </Button>
+                                </motion.div>
+                                <motion.div whileHover={{ scale: 1.1, rotate: -5 }} whileTap={{ scale: 0.9 }}>
+                                    <Button variant="outline" size="lg" className="premium-button rounded-xl" asChild>
+                                        <a href="https://www.linkedin.com/in/chaitanyapatil700/" target="_blank" rel="noopener noreferrer">
+                                            <Linkedin className="w-5 h-5 mr-2" />
+                                            LinkedIn
+                                        </a>
+                                    </Button>
+                                </motion.div>
                             </div>
                         </div>
-                    </div>
+                    </FadeIn>
 
-                    <div className="animate-slide-in-right">
-                        <form onSubmit={handleFormSubmit} className="space-y-8">
+                    <FadeIn direction="right" delay={0.6}>
+                        <form onSubmit={handleFormSubmit} className="space-y-8 p-8 bg-card/50 backdrop-blur-sm rounded-2xl border border-border/50 shadow-sm">
                             <div>
                                 <Input
                                     name="name"
                                     value={formData.name}
                                     onChange={handleInputChange}
                                     placeholder="Your Name"
-                                    className="w-full h-14 px-6 text-lg premium-focus rounded-xl border-2 border-slate-200 dark:border-slate-700 focus:border-amber-500 dark:focus:border-amber-400 transition-colors duration-300"
+                                    className="w-full h-14 px-6 text-lg premium-focus rounded-xl border-2 border-slate-200 dark:border-slate-700 focus:border-amber-500 dark:focus:border-amber-400 transition-colors duration-300 bg-background/50"
                                     required
                                 />
                             </div>
@@ -125,7 +144,7 @@ export function Contact() {
                                     value={formData.email}
                                     onChange={handleInputChange}
                                     placeholder="Your Email"
-                                    className="w-full h-14 px-6 text-lg premium-focus rounded-xl border-2 border-slate-200 dark:border-slate-700 focus:border-amber-500 dark:focus:border-amber-400 transition-colors duration-300"
+                                    className="w-full h-14 px-6 text-lg premium-focus rounded-xl border-2 border-slate-200 dark:border-slate-700 focus:border-amber-500 dark:focus:border-amber-400 transition-colors duration-300 bg-background/50"
                                     required
                                 />
                             </div>
@@ -136,32 +155,40 @@ export function Contact() {
                                     onChange={handleInputChange}
                                     placeholder="Your Message"
                                     rows={6}
-                                    className="w-full px-6 py-4 text-lg premium-focus rounded-xl border-2 border-slate-200 dark:border-slate-700 focus:border-amber-500 dark:focus:border-amber-400 transition-colors duration-300 resize-none"
+                                    className="w-full px-6 py-4 text-lg premium-focus rounded-xl border-2 border-slate-200 dark:border-slate-700 focus:border-amber-500 dark:focus:border-amber-400 transition-colors duration-300 resize-none bg-background/50"
                                     required
                                 />
                             </div>
 
                             {submitStatus === "success" && (
-                                <div className="p-6 bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 rounded-xl border border-green-200 dark:border-green-800">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                                    className="p-6 bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 rounded-xl border border-green-200 dark:border-green-800"
+                                >
                                     Thank you! Your message has been sent successfully.
-                                </div>
+                                </motion.div>
                             )}
 
                             {submitStatus === "error" && (
-                                <div className="p-6 bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300 rounded-xl border border-red-200 dark:border-red-800">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                                    className="p-6 bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300 rounded-xl border border-red-200 dark:border-red-800"
+                                >
                                     Sorry, there was an error sending your message. Please try again.
-                                </div>
+                                </motion.div>
                             )}
 
-                            <Button
-                                type="submit"
-                                disabled={isSubmitting}
-                                className="w-full h-14 premium-button bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white text-lg font-medium rounded-xl shadow-lg disabled:opacity-50 transition-all duration-300"
-                            >
-                                {isSubmitting ? "Sending..." : "Send Message"}
-                            </Button>
+                            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                                <Button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="w-full h-14 premium-button bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white text-lg font-medium rounded-xl shadow-lg disabled:opacity-50 transition-all duration-300"
+                                >
+                                    {isSubmitting ? "Sending..." : "Send Message"}
+                                </Button>
+                            </motion.div>
                         </form>
-                    </div>
+                    </FadeIn>
                 </div>
             </div>
         </section>

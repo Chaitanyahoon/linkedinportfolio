@@ -2,9 +2,11 @@
 import { useMemo } from "react"
 
 import { motion } from "framer-motion"
+import { FadeIn } from "@/components/ui/fade-in"
 import { Code, Database, Globe, Server, Terminal, Cpu, Award, Briefcase, GraduationCap, Smartphone, PenTool } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import type { Skill } from "@/lib/data"
+import { AnimatedNumber } from "@/components/ui/animated-number"
 
 interface AboutProps {
     skills: Skill[]
@@ -45,17 +47,11 @@ export function About({ skills }: AboutProps) {
 
                 <div className="max-w-4xl mx-auto mb-24">
                     {/* Bio & Stats Grid */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                        className="text-center"
-                    >
-                        <h3 className="text-3xl font-bold mb-6 text-slate-800 dark:text-slate-200">
-                            Aspiring Software Engineer | <span className="text-amber-600">PG-DAC Student</span>
+                    <FadeIn delay={0.2} className="text-center">
+                        <h3 className="text-3xl font-bold mb-6 text-foreground">
+                            Aspiring Software Engineer | <span className="text-primary">PG-DAC Student</span>
                         </h3>
-                        <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-12">
+                        <p className="text-lg text-muted-foreground leading-relaxed mb-12">
                             I am currently pursuing the <strong>Post Graduate Diploma in Advanced Computing (PG-DAC)</strong> at
                             CDAC MET Nashik (Aug 2025 - Present). Having completed my <strong>Bachelor's in Engineering (Information Technology)</strong>
                             (2021-2025), I'm now diving deep into the core of computer science and modern software development—from low-level
@@ -65,65 +61,89 @@ export function About({ skills }: AboutProps) {
                         </p>
 
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                            {stats.map((stat, index) => (
-                                <div key={index} className="p-6 bg-white dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700 hover:border-amber-500/50 transition-colors shadow-sm">
-                                    <div className="flex flex-col items-center gap-3">
-                                        <div className="p-3 bg-amber-100 dark:bg-amber-900/20 rounded-full">
-                                            <stat.icon className="w-6 h-6 text-amber-600" />
+                            {stats.map((stat, index) => {
+                                // Extract number and suffix if present
+                                const match = stat.value.match(/^(\d+)(.*)$/);
+                                const numberValue = match ? parseInt(match[1]) : null;
+                                const suffix = match ? match[2] : stat.value;
+
+                                return (
+                                    <motion.div
+                                        key={index}
+                                        whileHover={{ y: -5, borderColor: "hsl(var(--primary))" }}
+                                        className="p-6 bg-card rounded-2xl border border-border transition-all shadow-sm hover:shadow-lg"
+                                    >
+                                        <div className="flex flex-col items-center gap-3">
+                                            <div className="p-3 bg-primary/10 rounded-full">
+                                                <stat.icon className="w-6 h-6 text-primary" />
+                                            </div>
+                                            <div>
+                                                <p className="text-2xl font-bold text-foreground flex items-center justify-center gap-0.5">
+                                                    {numberValue !== null ? (
+                                                        <>
+                                                            <AnimatedNumber value={numberValue} />
+                                                            {suffix}
+                                                        </>
+                                                    ) : (
+                                                        stat.value
+                                                    )}
+                                                </p>
+                                                <p className="text-sm text-muted-foreground font-medium">{stat.label}</p>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <p className="text-2xl font-bold text-slate-800 dark:text-slate-200">{stat.value}</p>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">{stat.label}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
+                                    </motion.div>
+                                )
+                            })}
                         </div>
 
                         {/* Current Focus */}
-                        <div className="mt-16 p-6 bg-amber-50 dark:bg-amber-900/10 rounded-2xl border border-amber-100 dark:border-amber-900/20 inline-block">
-                            <h4 className="text-lg font-semibold text-amber-800 dark:text-amber-200 mb-2 flex items-center justify-center gap-2">
+                        <motion.div
+                            whileHover={{ scale: 1.02 }}
+                            className="mt-16 p-6 bg-primary/5 rounded-2xl border border-primary/20 inline-block"
+                        >
+                            <h4 className="text-lg font-semibold text-primary mb-2 flex items-center justify-center gap-2">
                                 <Cpu className="w-5 h-5" />
                                 Current Focus
                             </h4>
-                            <p className="text-slate-700 dark:text-slate-300">
-                                Exploring <span className="font-medium">Cloud Native Architecture</span>, <span className="font-medium">Docker & Kubernetes</span>, and <span className="font-medium">Advanced Java</span>.
+                            <p className="text-muted-foreground">
+                                Exploring <span className="font-medium text-foreground">Cloud Native Architecture</span>, <span className="font-medium text-foreground">Docker & Kubernetes</span>, and <span className="font-medium text-foreground">Advanced Java</span>.
                             </p>
-                        </div>
-                    </motion.div>
+                        </motion.div>
+                    </FadeIn>
                 </div>
 
                 {/* Skills Tabs */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <h3 className="text-2xl font-bold mb-8 text-center text-slate-800 dark:text-slate-200">Technical Arsenal</h3>
+                <FadeIn delay={0.4} direction="up">
+                    <h3 className="text-2xl font-bold mb-8 text-center text-foreground">Technical Arsenal</h3>
 
                     <Tabs defaultValue="backend" className="w-full max-w-5xl mx-auto">
-                        <TabsList className="flex flex-wrap justify-center gap-2 mb-8 h-auto p-2 bg-slate-100 dark:bg-slate-800/50 rounded-xl">
-                            <TabsTrigger value="backend" className="rounded-lg px-4 py-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:shadow-sm">Backend & Core</TabsTrigger>
-                            <TabsTrigger value="frontend" className="rounded-lg px-4 py-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:shadow-sm">Frontend</TabsTrigger>
-                            <TabsTrigger value="database" className="rounded-lg px-4 py-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:shadow-sm">Database</TabsTrigger>
-                            <TabsTrigger value="devops" className="rounded-lg px-4 py-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:shadow-sm">DevOps & OS</TabsTrigger>
-                            <TabsTrigger value="mobile" className="rounded-lg px-4 py-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:shadow-sm">Mobile</TabsTrigger>
-                            <TabsTrigger value="tools" className="rounded-lg px-4 py-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:shadow-sm">Tools & Testing</TabsTrigger>
+                        <TabsList className="flex flex-wrap justify-center gap-2 mb-8 h-auto p-2 bg-muted rounded-2xl">
+                            <TabsTrigger value="backend" className="rounded-xl px-4 py-2 data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all duration-300">Backend & Core</TabsTrigger>
+                            <TabsTrigger value="frontend" className="rounded-xl px-4 py-2 data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all duration-300">Frontend</TabsTrigger>
+                            <TabsTrigger value="database" className="rounded-xl px-4 py-2 data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all duration-300">Database</TabsTrigger>
+                            <TabsTrigger value="devops" className="rounded-xl px-4 py-2 data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all duration-300">DevOps & OS</TabsTrigger>
+                            <TabsTrigger value="mobile" className="rounded-xl px-4 py-2 data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all duration-300">Mobile</TabsTrigger>
+                            <TabsTrigger value="tools" className="rounded-xl px-4 py-2 data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all duration-300">Tools & Testing</TabsTrigger>
                         </TabsList>
 
                         {Object.entries(categories).map(([key, categorySkills]) => (
                             <TabsContent key={key} value={key} className="mt-0">
-                                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                                    {categorySkills.map((skill) => (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4 }}
+                                    className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"
+                                >
+                                    {categorySkills.map((skill, index) => (
                                         <motion.div
                                             key={skill._id}
-                                            initial={{ opacity: 0, scale: 0.9 }}
+                                            initial={{ opacity: 0, scale: 0.8 }}
                                             animate={{ opacity: 1, scale: 1 }}
-                                            transition={{ duration: 0.2 }}
-                                            className="premium-card p-4 rounded-xl flex flex-col items-center justify-center text-center gap-3 hover:border-amber-500/30 group min-h-[140px]"
+                                            transition={{ delay: index * 0.05, type: "spring", stiffness: 200 }}
+                                            whileHover={{ scale: 1.05, y: -5 }}
+                                            className="premium-card p-4 rounded-2xl flex flex-col items-center justify-center text-center gap-3 hover:border-primary/50 group min-h-[140px]"
                                         >
-                                            <div className="w-12 h-12 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                            <div className="w-12 h-12 bg-secondary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-inner">
                                                 {key === 'frontend' && <Globe className="w-6 h-6 text-blue-500" />}
                                                 {key === 'backend' && <Server className="w-6 h-6 text-green-500" />}
                                                 {key === 'database' && <Database className="w-6 h-6 text-purple-500" />}
@@ -132,21 +152,23 @@ export function About({ skills }: AboutProps) {
                                                 {key === 'tools' && <PenTool className="w-6 h-6 text-slate-500" />}
                                             </div>
                                             <div>
-                                                <h4 className="font-semibold text-slate-800 dark:text-slate-200">{skill.name}</h4>
-                                                <div className="w-full bg-slate-100 dark:bg-slate-700 h-1.5 mt-2 rounded-full overflow-hidden">
-                                                    <div
-                                                        className="h-full bg-gradient-to-r from-amber-400 to-orange-500 rounded-full"
-                                                        style={{ width: `${(skill.proficiency / 5) * 100}%` }}
-                                                    ></div>
+                                                <h4 className="font-semibold text-foreground">{skill.name}</h4>
+                                                <div className="w-full bg-secondary h-1.5 mt-2 rounded-full overflow-hidden">
+                                                    <motion.div
+                                                        initial={{ width: 0 }}
+                                                        whileInView={{ width: `${(skill.proficiency / 5) * 100}%` }}
+                                                        transition={{ duration: 1, delay: 0.5 }}
+                                                        className="h-full bg-gradient-to-r from-primary to-orange-500 rounded-full"
+                                                    />
                                                 </div>
                                             </div>
                                         </motion.div>
                                     ))}
-                                </div>
+                                </motion.div>
                             </TabsContent>
                         ))}
                     </Tabs>
-                </motion.div>
+                </FadeIn>
             </div>
         </section>
     )

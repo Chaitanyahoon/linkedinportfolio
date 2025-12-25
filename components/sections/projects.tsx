@@ -5,9 +5,9 @@ import Image from "next/image"
 import { ExternalLink, Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ProjectFilter } from "@/components/project-filter"
-import { ProjectModal } from "@/components/ui/project-modal"
 import type { Project } from "@/lib/data"
 import { motion, AnimatePresence } from "framer-motion"
+import { ShowcaseCard } from "@/components/ui/showcase-card"
 
 interface ProjectsProps {
     projects: Project[]
@@ -15,12 +15,11 @@ interface ProjectsProps {
 
 export function Projects({ projects }: ProjectsProps) {
     const [activeCategory, setActiveCategory] = useState("all")
-    const [selectedProject, setSelectedProject] = useState<Project | null>(null)
-    const [isModalOpen, setIsModalOpen] = useState(false)
 
     const filteredProjects = activeCategory === "all"
         ? projects
         : projects.filter((project) => project.category === activeCategory)
+
 
     const categories = Array.from(new Set(projects.map((project) => project.category)))
 
@@ -61,88 +60,36 @@ export function Projects({ projects }: ProjectsProps) {
                         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                     >
                         <AnimatePresence>
-                            {filteredProjects.map((project) => (
+                            {filteredProjects.map((project, index) => (
                                 <motion.div
                                     layout
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.9 }}
-                                    transition={{ duration: 0.3 }}
-                                    key={project._id}
-                                    className="premium-card rounded-2xl shadow-lg overflow-hidden group cursor-pointer"
-                                    whileHover={{ y: -10 }}
-                                    onClick={() => {
-                                        setSelectedProject(project)
-                                        setIsModalOpen(true)
+                                    initial={{ opacity: 0, scale: 0.8, y: 50 }}
+                                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                                    exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.2 } }}
+                                    transition={{
+                                        type: "spring",
+                                        stiffness: 100,
+                                        damping: 15,
+                                        delay: index * 0.1
                                     }}
+                                    key={project._id}
                                 >
-                                    <div className="relative overflow-hidden aspect-video">
-                                        <Image
-                                            src={project.image || "/placeholder.svg?height=240&width=384"}
-                                            alt={project.title}
-                                            fill
-                                            className="object-cover transition-transform duration-500 group-hover:scale-110"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                        <div className="absolute top-4 right-4">
-                                            <span className="px-3 py-1 bg-primary text-primary-foreground text-xs font-medium rounded-full shadow-lg">
-                                                {project.category}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div className="p-6">
-                                        <h3 className="text-2xl font-bold mb-3 text-foreground">{project.title}</h3>
-                                        <p className="text-muted-foreground mb-6 leading-relaxed line-clamp-3">{project.description}</p>
-                                        <div className="flex flex-wrap gap-2 mb-6">
-                                            {project.technologies.map((tech) => (
-                                                <span
-                                                    key={tech}
-                                                    className="px-2.5 py-0.5 bg-secondary text-secondary-foreground text-xs font-medium rounded-full"
-                                                >
-                                                    {tech}
-                                                </span>
-                                            ))}
-                                        </div>
-                                        <div className="flex gap-3">
-                                            {project.projectUrl && (
-                                                <Button
-                                                    variant="outline"
-                                                    className="flex-1 premium-button"
-                                                    onClick={(e) => e.stopPropagation()}
-                                                    asChild
-                                                >
-                                                    <a href={project.projectUrl} target="_blank" rel="noopener noreferrer">
-                                                        <ExternalLink className="w-4 h-4 mr-2" />
-                                                        Live Demo
-                                                    </a>
-                                                </Button>
-                                            )}
-                                            {project.githubUrl && (
-                                                <Button
-                                                    variant="outline"
-                                                    className="flex-1 premium-button"
-                                                    onClick={(e) => e.stopPropagation()}
-                                                    asChild
-                                                >
-                                                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                                                        <Github className="h-5 w-5" />
-                                                    </a>
-                                                </Button>
-                                            )}
-                                        </div>
-                                    </div>
+                                    <ShowcaseCard
+                                        title={project.title}
+                                        description={project.description}
+                                        image={project.image}
+                                        tags={project.technologies}
+                                        href={project.projectUrl}
+                                        githubUrl={project.githubUrl}
+                                        category={project.category}
+                                        overview={project.description.slice(0, 50) + "..."} // Simple overview for now
+                                    />
                                 </motion.div>
                             ))}
                         </AnimatePresence>
                     </motion.div>
                 </div>
             </div>
-
-            <ProjectModal
-                project={selectedProject}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-            />
         </section>
     )
 }
