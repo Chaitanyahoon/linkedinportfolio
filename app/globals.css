@@ -4,57 +4,48 @@
 
 @layer base {
   :root {
-    /* Slightly cooler/darker light mode */
-    --background: 260 25% 98%;
-    --foreground: 260 40% 10%;
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
     --card: 0 0% 100%;
-    --card-foreground: 260 40% 10%;
+    --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
-    --popover-foreground: 260 40% 10%;
-    --primary: 265 90% 60%;
-    /* Deep Violet */
+    --popover-foreground: 222 47% 11%;
+    --primary: 35 92% 50%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 290 90% 95%;
-    /* Light Orchid */
-    --secondary-foreground: 260 40% 10%;
-    --muted: 260 20% 96%;
-    --muted-foreground: 260 10% 45%;
-    --accent: 260 20% 96%;
-    --accent-foreground: 260 40% 10%;
+    --secondary: 35 90% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222 47% 11%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 260 20% 90%;
-    --input: 260 20% 90%;
-    --ring: 265 90% 60%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 35 92% 50%;
     --radius: 0.75rem;
   }
 
   .dark {
-    /* Deep Cosmic Background - closer to void */
-    --background: 265 50% 5%;
+    --background: 222 47% 11%;
     --foreground: 210 40% 98%;
-    --card: 265 50% 8%;
+    --card: 222 47% 11%;
     --card-foreground: 210 40% 98%;
-    --popover: 265 50% 8%;
+    --popover: 222 47% 11%;
     --popover-foreground: 210 40% 98%;
-
-    /* Neon Violet & Cyan Accents */
-    --primary: 270 95% 65%;
-    /* Electric Violet */
-    --primary-foreground: 210 40% 98%;
-    --secondary: 190 90% 50%;
-    /* Cyan Neon */
-    --secondary-foreground: 265 60% 10%;
-
-    --muted: 265 40% 15%;
-    --muted-foreground: 265 20% 70%;
-    --accent: 265 40% 15%;
+    --primary: 35 92% 50%;
+    --primary-foreground: 222 47% 11%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 265 40% 20%;
-    --input: 265 40% 20%;
-    --ring: 270 95% 65%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 35 92% 50%;
   }
 }
 

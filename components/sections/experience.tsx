@@ -83,7 +83,7 @@ export function ExperienceSection({ experiences }: ExperienceSectionProps) {
                                                             <Briefcase className="w-6 h-6 text-primary" />
                                                         </div>
                                                         <span className="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold border border-primary/20 uppercase tracking-wider">
-                                                            {exp.type || "Internship"}
+                                                            Internship
                                                         </span>
                                                     </div>
 

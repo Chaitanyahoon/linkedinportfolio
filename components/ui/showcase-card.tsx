@@ -171,7 +171,7 @@ export function ShowcaseCard({
                                     </Button>
                                 )}
                             </div>
-                        </div>
+                        </motion.div>
                     )}
                 </AnimatePresence>
             </motion.div>

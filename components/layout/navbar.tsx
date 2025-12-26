@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import ThemeToggle from "@/components/ui/theme-toggle"
 import { motion, useScroll, useMotionValueEvent } from "framer-motion"
 import { useTheme } from "next-themes"
-import { Logo } from "@/components/ui/logo"
+
 
 export function Navbar() {
     const { theme, setTheme } = useTheme()
@@ -69,9 +69,7 @@ export function Navbar() {
         >
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
-                    <div className="cursor-pointer" onClick={() => scrollToSection("home")}>
-                        <Logo className="w-12 h-12" />
-                    </div>
+                    <span className="font-bold text-lg tracking-tighter">CP.</span>
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center gap-1 bg-secondary/30 p-1.5 rounded-full border border-white/5 backdrop-blur-md">

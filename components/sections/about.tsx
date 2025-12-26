@@ -115,6 +115,25 @@ export function About({ skills }: AboutProps) {
                     </FadeIn>
                 </div>
 
+                {/* GitHub Stats */}
+                <div className="max-w-4xl mx-auto mb-24 text-center">
+                    <FadeIn delay={0.3}>
+                        <h4 className="text-xl font-bold mb-8 flex items-center justify-center gap-2">
+                            <span className="text-primary">#</span> Coding Activity
+                        </h4>
+                        <motion.div
+                            whileHover={{ scale: 1.02 }}
+                            className="inline-block relative rounded-2xl overflow-hidden border border-white/10 bg-black/20 backdrop-blur-sm shadow-2xl"
+                        >
+                            <img
+                                src="https://github-readme-stats.vercel.app/api?username=Chaitanyahoon&show_icons=true&hide_rank=true&hide_border=true&bg_color=00000000&text_color=e2e8f0&title_color=38bdf8&icon_color=38bdf8&count_private=true"
+                                alt="Chaitanya's GitHub Stats"
+                                className="w-full max-w-[500px] h-auto"
+                            />
+                        </motion.div>
+                    </FadeIn>
+                </div>
+
                 {/* Skills Tabs */}
                 <FadeIn delay={0.4} direction="up">
                     <h3 className="text-2xl font-bold mb-8 text-center text-foreground">Technical Arsenal</h3>
